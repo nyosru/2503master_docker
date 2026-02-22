@@ -47,8 +47,8 @@ services:
   phpmyadmin2:
     image: phpmyadmin/phpmyadmin
 
-    #    links:
-    #      - db_mysql2:db
+    links:
+      - db_mysql_master:db
 
     depends_on:
       db_mysql_master:
