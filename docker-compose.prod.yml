@@ -1,4 +1,3 @@
-version: '3.8'
 
 networks:
   laravel:
@@ -12,11 +11,69 @@ networks:
 services:
 
 
+
+  db_mysql_master:
+    container_name: db_mysql_master
+    image: mariadb:10.7.8
+    networks:
+      - laravel
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOT_PASSWORD}
+    #    ports:
+    #      - 3306:3306
+    volumes:
+      - '${MYSQL_DB_MASTER_FOLDER}:/var/lib/mysql'
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_MASTER_DB_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  #
+  phpmyadmin2:
+    image: phpmyadmin/phpmyadmin
+
+    #    links:
+    #      - db_mysql2:db
+
+    depends_on:
+      db_mysql_master:
+        condition: service_healthy
+    ports:
+      - 6063:80
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_MASTER_DB_ROOT_PASSWORD}
+      UPLOAD_LIMIT: 300M
+    #    depends_on:
+    #      - db_mysql2
+    networks:
+      - laravel
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
   2503master:
     container_name: 2503master
     depends_on:
-      db_mysql2:
-        condition: service_healthy
+      - db_mysql_master
+    #condition: service_healthy
     #    depends_on:
     #      - db_mysql2
     #    links:
@@ -62,7 +119,7 @@ services:
   2503master-queue:
     container_name: 2503master-queue
     depends_on:
-      - db_mysql2
+      - db_mysql_master
       - 2503master
     #    links:
     #      - db_mysql2:db
@@ -96,8 +153,9 @@ services:
   2503master-scheduler:
     container_name: 2503master-scheduler
     depends_on:
-      db_mysql2:
-        condition: service_healthy
+      - db_mysql_master
+#      db_mysql2:
+#        condition: service_healthy
     #    depends_on:
     #      - db_mysql2
     #      - 2503master
