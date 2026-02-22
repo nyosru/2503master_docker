@@ -14,6 +14,21 @@ on:
       - main
 
 jobs:
+
+
+  sms_start:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send deployment start notification
+        uses: appleboy/telegram-action@master
+        with:
+          to: 360209578, phpcat
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀🚀🚀 Начинаем деплой ${{ github.repository }}
+            👨🏻‍💻 ${{ github.actor }} (${{ github.run_id }})
+            📝 ${{ github.event.head_commit.message }}
+
   deploy:
     runs-on: ubuntu-latest
 #    outputs:
