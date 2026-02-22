@@ -7,24 +7,23 @@ dev:
 	docker-compose up -d --remove-orphans
 
 
+
 #
 #remove-laravel-network:
 #	docker network rm laravel || echo "Network laravel_network does not exist"
 #
-#create_web_laravel:
-#
-#	@if ! docker network ls --format '{{.Name}}' | grep -w laravel > /dev/null; then \
-#		echo "Creating Docker network laravel"; \
-#		docker network create laravel; \
-#	else \
-#		echo "Docker network laravel already exists"; \
-#	fi
-#
-#
-#
-#
-#
-#
+
+create_web_laravel:
+
+	@if ! docker network ls --format '{{.Name}}' | grep -w laravel > /dev/null; then \
+		echo "Creating Docker network laravel"; \
+		docker network create laravel; \
+	else \
+		echo "Docker network laravel already exists"; \
+	fi
+
+
+
 prod:
 	@echo "- - -"
 	@echo "- - -"
