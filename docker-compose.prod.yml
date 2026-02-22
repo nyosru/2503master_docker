@@ -19,7 +19,7 @@ services:
       - laravel
     environment:
       MYSQL_ROOT_HOST: "%"
-      MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_MASTER_DB_ROOT_PASSWORD}
     #    ports:
     #      - 3306:3306
     volumes:
