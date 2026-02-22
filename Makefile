@@ -20,16 +20,16 @@ create_web_laravel:
 
 
 prod:
-	#@echo "- - -"
-	#@echo "- - -"
-	#@echo "+++ prod environment started"
-	#make create_web_laravel
+	@echo "- - -"
+	@echo "- - -"
+	@echo "+++ prod environment started"
+	make create_web_laravel
 #	@echo "- - -"
 #	@echo "+++2 prod environment started"
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
 	cp docker-compose.prod.yml docker-compose.yml
-	docker-compose down --rmi all -v
-	docker-compose up -d --build
+	docker compose down --rmi all -v
+	docker compose up -d --build
 	# make caddy_refresh_cfd_prod
 	@echo "- - -"
 	@echo "чистим кещ докера"
