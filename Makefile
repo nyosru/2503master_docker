@@ -1,17 +1,9 @@
-#
-#
+
 dev:
 	@echo "Development environment started"
 	cp docker-compose.local.yml docker-compose.yml
 	docker-compose down
 	docker-compose up -d --remove-orphans
-
-
-
-#
-#remove-laravel-network:
-#	docker network rm laravel || echo "Network laravel_network does not exist"
-#
 
 create_web_laravel:
 
@@ -23,12 +15,15 @@ create_web_laravel:
 	fi
 
 
+#remove-laravel-network:
+#	docker network rm laravel || echo "Network laravel_network does not exist"
+
 
 prod:
-	@echo "- - -"
-	@echo "- - -"
-	@echo "+++ prod environment started"
-	make create_web_laravel
+	#@echo "- - -"
+	#@echo "- - -"
+	#@echo "+++ prod environment started"
+	#make create_web_laravel
 #	@echo "- - -"
 #	@echo "+++2 prod environment started"
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
