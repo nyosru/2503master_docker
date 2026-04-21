@@ -129,7 +129,7 @@ services:
       - laravel
     build:
       context: .
-      dockerfile: docker.2503master.Dockerfile
+      dockerfile: docker.2503master_dev.Dockerfile
     working_dir: ${FOLDER_2503MASTER_DEV_SERV}
     environment:
       - PHPGROUP=www-data
