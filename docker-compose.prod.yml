@@ -38,10 +38,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: 512M
-        reservations:
+          cpus: "0.15"
           memory: 256M
+        reservations:
+          memory: 128M
 
   #
   phpmyadmin2:
@@ -67,7 +67,13 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-
+    deploy:
+      resources:
+        limits:
+          cpus: "0.05"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   2503master:
     container_name: 2503master
@@ -111,10 +117,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
+          cpus: "0.15"
           memory: 512M
         reservations:
-          memory: 256M
+          memory: 128M
 
   2503master_dev:
     container_name: 2503master_dev
@@ -158,10 +164,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.20"
+          cpus: "0.15"
           memory: 512M
         reservations:
-          memory: 256M
+          memory: 128M
 
   2503master-queue:
     container_name: 2503master-queue
